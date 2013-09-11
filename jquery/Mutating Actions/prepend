@@ -1,0 +1,19 @@
+
+//Prepend:
+Blockly.Language.jquery_prepend = {
+  helpUrl: helpUrl,
+  init: function() {
+    this.setColour(330);
+    this.appendValueInput("newHtml")
+        .setCheck("String")
+        .appendTitle("Prepend with");
+    this.setOutput(true, 'jquery_action');
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript.jquery_prepend = function() {
+  var value_newhtml = Blockly.JavaScript.valueToCode(this, 'newHtml', Blockly.JavaScript.ORDER_NONE);
+  var code = '.prepend('+value_newhtml+')';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+

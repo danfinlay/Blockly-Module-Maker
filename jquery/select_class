@@ -1,0 +1,23 @@
+
+//Select by Class:
+Blockly.Language.jquery_select_class = {
+  helpUrl: helpUrl,
+  init: function() {
+    this.setColour(65);
+    this.appendDummyInput()
+        .appendTitle("Class")
+        .appendTitle(new Blockly.FieldTextInput("myClass"), "el_type");
+    this.setInputsInline(true);
+    this.setOutput(true, 'jquery_selector');
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript.jquery_select_class = function() {
+  var text_class = this.getTitleValue('class');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '".'+text_class+'"';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+

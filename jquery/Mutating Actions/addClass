@@ -1,0 +1,20 @@
+
+//.addClass():
+Blockly.Language.jquery_addClass = {
+  helpUrl: helpUrl,
+  init: function() {
+    this.setColour(330);
+    this.appendValueInput("newClass")
+        .setCheck("String")
+        .appendTitle("Add Class");
+    this.setOutput(true, 'jquery_action');
+    this.setTooltip('Adds a CSS class to the selected element.');
+  }
+};
+Blockly.JavaScript.jquery_addClass = function() {
+  var value_newClass = Blockly.JavaScript.valueToCode(this, 'newClass', Blockly.JavaScript.ORDER_NONE);
+  var code = '.addClass('+value_newClass+')';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+

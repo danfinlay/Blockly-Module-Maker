@@ -1,0 +1,19 @@
+
+//Append:
+Blockly.Language.jquery_append = {
+  helpUrl: helpUrl,
+  init: function() {
+    this.setColour(330);
+    this.appendValueInput("newHtml")
+        .setCheck("String")
+        .appendTitle("Append");
+    this.setOutput(true, 'jquery_action');
+    this.setTooltip('');
+  }
+};
+Blockly.JavaScript.jquery_append = function() {
+  var value_newhtml = Blockly.JavaScript.valueToCode(this, 'newHtml', Blockly.JavaScript.ORDER_NONE);
+  var code = '.append('+value_newhtml+')';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+

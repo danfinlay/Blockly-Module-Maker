@@ -1,0 +1,23 @@
+
+//Select by ID:
+Blockly.Language.jquery_select_id = {
+  helpUrl: helpUrl,
+  init: function() {
+    this.setColour(65);
+    this.appendDummyInput()
+        .appendTitle("ID")        
+        .appendTitle(new Blockly.FieldTextInput("myID"), "id");
+    this.setInputsInline(true);
+    this.setOutput(true, 'jquery_selector');
+    this.setTooltip('');
+  }
+}
+Blockly.JavaScript.jquery_select_id = function() {
+  var text_id = this.getTitleValue('id');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '"#'+text_id+'"';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+

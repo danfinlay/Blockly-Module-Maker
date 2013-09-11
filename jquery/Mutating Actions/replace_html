@@ -1,0 +1,21 @@
+
+//Replace HTML:
+Blockly.Language.jquery_replace_html = {
+  helpUrl: helpUrl,
+  init: function() {
+    this.setColour(330);
+    this.appendValueInput("newHtml")
+        .setCheck("String")
+        .appendTitle("Fill with HTML");
+    this.setOutput(true, 'jquery_action');
+    this.setTooltip('Replaces the HTML of the selected element(s) with the given HTML.  Use the "HTML" module to build properly formatted HTML.');
+  }
+};
+Blockly.JavaScript.jquery_replace_html = function() {
+  var value_newhtml = Blockly.JavaScript.valueToCode(this, 'newHtml', Blockly.JavaScript.ORDER_NONE);
+  var code = '.html('+value_newtext+')';
+  
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
