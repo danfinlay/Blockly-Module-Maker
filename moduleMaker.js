@@ -1,13 +1,13 @@
 var fs = require('fs');
 var folderName = process.argv[2];
-console.log("Requested folder: "+folderName);
 
+var blockDefinitions = '';
 
 module.exports = function(path_to_build){
-  var requestedPath = __dirname + '/' + folderName;
-  categoryXML += xmlForPath(requestedPath);
+  blockDefinitions = '';
 
-  var blockDefinitions = '';
+  var requestedPath = __dirname + '/' + folderName;
+  var categoryXML = xmlForPath(requestedPath);
 
   return [categoryXML, blockDefinitions];
 
@@ -15,14 +15,16 @@ module.exports = function(path_to_build){
 
 function xmlForPath(pathFromHere){
   var result = '';
+  var categoryXML = '';
 
   if(fs.statSync(pathFromHere).isDirectory()){
 
-    result += '<category name="'+pathFromHere+'">';
+    result += '<category name="'+nameForPath(pathFromHere)+'">';
 
     var folderContents = fs.readdirSync(pathFromHere);
     for(thing in folderContents){
-      result += xmlForPath(pathFromHere + '/' + folderContents[thing]);
+      if(folderContents[thing]!=='.DS_Store')
+        result += xmlForPath(pathFromHere + '/' + folderContents[thing]);
     }
 
     result += '</category>';
@@ -31,9 +33,15 @@ function xmlForPath(pathFromHere){
 
     var parsedPath = pathFromHere.split('/');
     var fileName = parsedPath[parsedPath.length-1];
-
     result += '<block type="'+fileName+'"></block>';
-    categoryXML += fs.readFileSync(pathFromHere);
+
+    blockDefinitions += fs.readFileSync(pathFromHere);
+
   }
   return result;
+}
+
+function nameForPath(path){
+  var parsed = path.split('/');
+  return parsed[parsed.length-1];
 }
