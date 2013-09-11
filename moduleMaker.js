@@ -1,7 +1,9 @@
 var fs = require('fs');
 var folderName = process.argv[2];
+var _ = require('lodash');
 
 var blockDefinitions = '';
+var helpUrl = '';
 
 module.exports = function(path_to_build){
   blockDefinitions = '';
@@ -16,14 +18,18 @@ module.exports = function(path_to_build){
 function xmlForPath(pathFromHere){
   var result = '';
   var categoryXML = '';
+  blockDefinitions += 'var helpUrl = "";';
 
   if(fs.statSync(pathFromHere).isDirectory()){
 
     result += '<category name="'+nameForPath(pathFromHere)+'">';
 
     var folderContents = fs.readdirSync(pathFromHere);
+    if(_.contains(folderContents, 'help')){
+      helpUrl += fs.readFileSync( pathFromHere+ '/help' );
+    }
     for(thing in folderContents){
-      if(folderContents[thing]!=='.DS_Store')
+      if(folderContents[thing]!=='.DS_Store' && folderContents[thing] !== 'help')
         result += xmlForPath(pathFromHere + '/' + folderContents[thing]);
     }
 
@@ -35,6 +41,7 @@ function xmlForPath(pathFromHere){
     var fileName = parsedPath[parsedPath.length-1];
     result += '<block type="'+fileName+'"></block>';
 
+    blockDefinitions += 'helpUrl = "'+ helpUrl +'";';
     blockDefinitions += fs.readFileSync(pathFromHere);
 
   }
