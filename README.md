@@ -45,3 +45,5 @@ Wraps moduleMaker  in such a way that it's ready to add directly into [Bloccoli]
 Does the same thing as the `bloccoliBuilder`, but can be called from the command line and piped into a file.
 
 These operations are all done synchronously, so it is probably not best to do on the fly by its current design.
+
+I've included a "helpUrl" generator in this module.  If you include a file called 'help' in any of the folders, with a URL string inside it, that URL will be used as the default help URL for blocks inside that folder, and folders inside it, etc.
